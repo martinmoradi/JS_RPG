@@ -1,13 +1,14 @@
 class Game {
   constructor() {
+    this.welcome()
     this.remainingTurns = 10;
     this.characters = new Array();
     this.initializeCharacters();
-    this.watchStats()
+    this.watchStats();
   }
 
   showChar() {
-   this.characters.forEach(char => console.log(char))
+    this.characters.forEach((char) => console.log(char));
   }
   initializeCharacters() {
     this.characters.push(
@@ -26,35 +27,85 @@ class Game {
     console.log("Game is over !");
   }
 
-  congratulateWinners() {
-    this.aliveChars().forEach((winner) =>
-    console.log(`${winner.name} won the game !`)
-    );
-    this.aliveChars().forEach((winner) => (winner.status = "winner"));
+  currentTurn() {
+    return 10 - this.remainingTurns;
   }
 
+  
   showTurn() {
-    console.log(
-      `This is the turn ${10 - this.remainingTurns}. ( ఠൠఠ )ﾉ FIGHT !`
-    );
+    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    console.log(`This is the turn ${this.currentTurn()}. ( ఠൠఠ )ﾉ FIGHT !`);
   }
-
+  
   watchStats() {
     console.log("Characters currently alive :");
     this.aliveChars().forEach((character) => {
       console.log(character.stats());
     });
   }
-
+  
   aliveChars() {
     return this.characters.filter((char) => char.status === "playing");
   }
-
+  
   isOngoing() {
     if (this.aliveChars().length > 1 && this.remainingTurns > 1) {
       return true;
     } else {
       return false;
     }
+  }
+  congratulateWinners() {
+    this.aliveChars().forEach((winner) =>
+      console.log(`${winner.name} won the game !`)
+    );
+    this.aliveChars().forEach((winner) => (winner.status = "winner"));
+    console.log(`	
+                        ____________
+                      .~      ,   . ~.
+                     /                \\
+                    /      /~\\/~\\   ,  \\
+                   |   .   \\    /   '   |
+                   |         \\/         |
+          XX       |   /~~\\       /~~\\  |       XX
+        XX  X      | |  o  \\    /  o  | |      X  XX
+      XX     X     |  \\____/    \\____/  |     X     XX
+  XXXXX     XX      \\         /\\        ,/      XX     XXXXX
+  X        XX%;;@    \\       /  \\     ,/      @%%;XX        X
+  X       X  @%%;;@    |           ' |      @%%;;@  X       X
+  X      X     @%%;;@  |.  ; ; ; ;  ,|    @%%;;@     X      X
+  X    X        @%%;;@                  @%%;;@        X    X
+  X   X          @%%;;@              @%%;;@          X   X
+  X  X            @%%;;@          @%%;;@            X  X
+  XX X             @%%;;@      @%%;;@             X XX
+  XXX              @%%;;@   @%%;;@               XXX
+                       
+
+                  Made with ❤ by Martin Moradi`);
+  }
+
+  welcome() {
+    console.log(`
+           .------.
+           /  ~ ~  \\,------.      ________
+         ,'  ~ ~ ~  /  (°)  \\   ,'        \\
+       ,'          /.    ~ ~\\ /            \\
+     ,'           | ,'\\  ~ ~ ~ X      \\  \\  |
+   ,'  ,'          -  -<       (       \\  \\  |
+ ,'  ,'               (vv      \/\\  \\  \\  |  |
+(__,'  ,'   /         (vv   ""    \\  \\  | |  |
+  (__,'    /   /       vv   """    \\ |  / / /
+      \\__,'   /  |     vv          / / / / /
+          \\__/   / |  | \         / /,',','
+             \\__/\_^  |  \       /,'',','|
+                    -^.__>.____/  ' ,'   |
+                            // //---'      |
+          ===============(((((((=================
+                                     | \ \  |
+                                     / |  |  |
+                                    / /  / \  |
+                                    .     |   |
+                                      --------'
+    `);
   }
 }

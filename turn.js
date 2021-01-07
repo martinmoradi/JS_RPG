@@ -28,7 +28,6 @@ class Turn {
       if (ennemies.length < 1) {
         break;
       }
-      console.log(this.aliveCharacters[i]);
       const action = this.selectAction(this.aliveCharacters[i], ennemies);
       const victim = ennemies[this.getRandomVictim(ennemies)];
       this.aliveCharacters[i].dealsDamage(
