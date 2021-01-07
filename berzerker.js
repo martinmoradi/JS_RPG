@@ -6,9 +6,10 @@ class Berzerker extends Character {
     mp = 0,
     maxMp = 0,
     attackDmg = 4,
-    specialMp = NaN,
-    specialDmg = NaN
+    status,
+    specialMp = NaN
+    
   ) {
-    super(name, hp, mp, attackDmg, maxHp, specialDmg, specialMp, maxMp);
+    super(name, hp, mp, attackDmg, maxHp, maxMp, status, specialMp);
   }
 }

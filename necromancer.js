@@ -6,9 +6,9 @@ class Necromancer extends Character {
     mp = 60,
     maxMp = 60,
     attackDmg = 2,
-    specialMp = 20,
-    specialDmg = 5
+    status,
+    specialMp = 20
   ) {
-    super(name, hp, mp, attackDmg, maxHp, specialDmg, specialMp, maxMp);
+    super(name, hp, mp, attackDmg, maxHp, maxMp, status, specialMp);
   }
 }

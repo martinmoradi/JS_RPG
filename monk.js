@@ -6,9 +6,9 @@ class Monk extends Character {
     mp = 160,
     maxMp = 160,
     attackDmg = 2,
-    specialMp = 25,
-    specialDmg = NaN
+    status,
+    specialMp = 25
   ) {
-    super(name, hp, mp, attackDmg, maxHp, specialDmg, specialMp, maxMp);
+    super(name, hp, mp, attackDmg, maxHp, maxMp, status, specialMp);
   }
 }

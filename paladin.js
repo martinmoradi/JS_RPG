@@ -6,9 +6,9 @@ class Paladin extends Character {
     mp = 160,
     maxMp = 160,
     attackDmg = 3,
-    specialMp = 40,
-    specialDmg = 4
+    status,
+    specialMp = 40
   ) {
-    super(name, hp, mp, attackDmg, maxHp, specialDmg, specialMp, maxMp);
+    super(name, hp, mp, attackDmg, maxHp, maxMp, status, specialMp);
   }
 }

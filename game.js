@@ -3,7 +3,7 @@ class Game {
     this.remainingTurns = 10;
     this.characters = new Array();
     this.initializeCharacters();
-    this.watchStats
+    this.watchStats;
   }
 
   initializeCharacters() {
@@ -21,13 +21,10 @@ class Game {
 
   endGame() {
     console.log("Game is over !");
-    this.characters
-      .filter((character) => {
-        character.status === "winner";
-      })
-      .forEach((winner) => {
-        console.log(`${winner.name} a gagné !`);
-      });
+    this.aliveChars().forEach((winner) => (winner.status = "winner"));
+    this.aliveChars().forEach((winner) =>
+      console.log(`${winner.name} a gagné !`)
+    );
   }
 
   showTurn() {
@@ -46,13 +43,12 @@ class Game {
       });
   }
 
+  aliveChars() {
+    return this.characters.filter((char) => char.status === "playing");
+  }
+
   isOngoing() {
-    if (
-      this.remainingTurns > 0 &&
-      this.characters.filter((character) => {
-        character.status === "playing" > 1;
-      })
-    ) { 
+    if (this.aliveChars().length > 1 && this.remainingTurns > 1) {
       return true;
     } else {
       return false;

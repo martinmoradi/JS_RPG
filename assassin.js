@@ -6,9 +6,9 @@ class Assassin extends Character {
     mp = 20,
     maxMp = 20,
     attackDmg = 6,
-    specialMp = 20,
-    specialDmg = 7
+    status, 
+    specialMp = 20
   ) {
-    super(name, hp, mp, attackDmg, maxHp, specialDmg, specialMp, maxMp);
+    super(name, hp, mp, attackDmg, maxHp, maxMp, status, specialMp);
   }
 }

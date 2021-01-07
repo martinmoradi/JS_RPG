@@ -6,9 +6,9 @@ class Wizard extends Character {
     mp = 200,
     maxMp = 200,
     attackDmg = 2,
-    specialMp = 25,
-    specialDmg = 7
+    status,
+    specialMp = 25
   ) {
-    super(name, hp, mp, attackDmg, maxHp, specialDmg, specialMp, maxMp);
+    super(name, hp, mp, attackDmg, maxHp, maxMp, status, specialMp);
   }
 }

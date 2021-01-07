@@ -6,10 +6,10 @@ class Figher extends Character {
     mp = 40,
     maxMp = 40,
     attackDmg = 4,
-    specialMp = 20,
-    specialDmg = 5
+    status,
+    specialMp = 20   
   ) {
-    super(name, hp, mp, attackDmg, maxHp, specialDmg, specialMp, maxMp);
+    super(name, hp, mp, attackDmg, maxHp, maxMp, status, specialMp);
   }
 
   specialAttack() {
