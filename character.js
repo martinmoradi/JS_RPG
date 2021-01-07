@@ -4,9 +4,7 @@ class Character {
     hp,
     mp,
     attackDmg,
-    specialDmg,
-    specialMp,
-    status = "playing"
+    status = "playing",
   ) {
     this.name = name;
     this.hp = hp;
@@ -14,8 +12,6 @@ class Character {
     this.mp = mp;
     this.maxMp = mp;
     this.attackDmg = attackDmg;
-    this.specialDmg = specialDmg;
-    this.specialMp = specialMp;
     this.status = status;
   }
 
@@ -45,7 +41,7 @@ class Character {
   }
 
   stats() {
-    return `${this.name} : ${this.hp}/${this.maxHp}HP | ${this.mp}/${this.maxMp}`;
+    return `${this.name} : ${this.hp}/${this.maxHp}HP | ${this.mp}/${this.maxMp}MP`;
   }
 
   specialAvailable() {

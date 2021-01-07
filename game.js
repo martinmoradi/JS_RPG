@@ -3,9 +3,12 @@ class Game {
     this.remainingTurns = 10;
     this.characters = new Array();
     this.initializeCharacters();
-    this.watchStats;
+    this.watchStats()
   }
 
+  showChar() {
+   this.characters.forEach(char => console.log(char))
+  }
   initializeCharacters() {
     this.characters.push(
       new Assassin("Carl"),

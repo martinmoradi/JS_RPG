@@ -2,14 +2,11 @@ class Figher extends Character {
   constructor(
     name,
     hp = 12,
-    maxHp = 12,
     mp = 40,
-    maxMp = 40,
     attackDmg = 4,
-    status,
-    specialMp = 20   
+    status
   ) {
-    super(name, hp, mp, attackDmg, maxHp, maxMp, status, specialMp);
+     super(name, hp, mp, attackDmg, status);
   }
 
   specialAttack() {
