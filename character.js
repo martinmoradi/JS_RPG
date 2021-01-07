@@ -49,6 +49,6 @@ class Character {
   }
 
   specialAvailable() {
-    this.mp >= this.specialMp ? true : false;
+    this.mp >= this.specialMp ?  true : false;
   }
 }

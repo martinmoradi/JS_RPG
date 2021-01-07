@@ -21,26 +21,26 @@ class Game {
 
   endGame() {
     console.log("Game is over !");
-    this.aliveChars().forEach((winner) => (winner.status = "winner"));
+  }
+
+  congratulateWinners() {
     this.aliveChars().forEach((winner) =>
-      console.log(`${winner.name} a gagné !`)
+    console.log(`${winner.name} won the game !`)
     );
+    this.aliveChars().forEach((winner) => (winner.status = "winner"));
   }
 
   showTurn() {
-    console.log(`This is the turn ${10 - this.remainingTurns}.`);
-    console.log("( ఠൠఠ )ﾉ FIGHT !");
+    console.log(
+      `This is the turn ${10 - this.remainingTurns}. ( ఠൠఠ )ﾉ FIGHT !`
+    );
   }
 
   watchStats() {
     console.log("Characters currently alive :");
-    this.characters
-      .filter((character) => {
-        character.status === "playing";
-      })
-      .forEach((character) => {
-        console.log(character.stats());
-      });
+    this.aliveChars().forEach((character) => {
+      console.log(character.stats());
+    });
   }
 
   aliveChars() {
