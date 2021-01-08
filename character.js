@@ -4,8 +4,7 @@ class Character {
     hp,
     mp,
     attackDmg,
-    status = "playing",
-    player = "ia"
+    status = "playing"
   ) {
     this.name = name;
     this.hp = hp;

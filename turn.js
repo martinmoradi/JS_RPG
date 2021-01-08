@@ -1,8 +1,14 @@
 class Turn {
-  constructor(aliveCharacters) {
+  constructor(aliveCharacters, playingGame) {
+    // console.clear()
     this.aliveCharacters = aliveCharacters;
+    this.game = playingGame;
     this.shuffleChars();
     this.charActions();
+  }
+
+  humanPlayer() {
+    return this.aliveCharacters.filter((char) => char.player === "human")[0];
   }
 
   shuffleChars() {
@@ -28,23 +34,81 @@ class Turn {
       if (ennemies.length < 1) {
         break;
       }
-      const action = this.selectAction(this.aliveCharacters[i], ennemies);
-      const victim = ennemies[this.getRandomVictim(ennemies)];
-      this.aliveCharacters[i].dealsDamage(
-        victim,
-        this.aliveCharacters[i].attackDmg
-      );
+
+      if (this.aliveCharacters[i] === this.humanPlayer()) { // Human plays
+        let hasPlayed = false  
+        do {
+          hasPlayed = true;
+          let action = this.humanAction(this.aliveCharacters[i], ennemies);
+          if (action === "3") {
+            this.game.watchStats();
+            hasPlayed = false
+          } else {
+           const victim = this.humanAttack(ennemies);
+           if (action === "1") {
+             this.aliveCharacters[i].dealsDamage(victim, this.aliveCharacters[i].attackDmg );
+           }
+          }
+        } while (!hasPlayed);
+
+      } else { // IA Plays
+        this.iaAction(this.aliveCharacters[i], ennemies);
+      }
+
       this.updateAliveCharacters();
       console.log("==========================================================");
     }
   }
 
-  selectAction(char, ennemies) {
+  iaAction(char, ennemies) {
     const killable = ennemies.filter((ennemy) => ennemy.hp <= char.attackDmg);
     if (killable.length >= 1) {
       const victim = killable[this.getRandomVictim(killable)];
-      console.log(`${victim.name} CAN BE KILLED BY ${char.name} !!!!!!!!!!`)
+      char.dealsDamage(victim, char.attackDmg);
+    } else {
+      const victim = ennemies[this.getRandomVictim(ennemies)];
+      char.dealsDamage(victim, char.attackDmg);
     }
   }
 
+  humanAction(char) {
+    console.log("It's your turn, select an action :");
+    console.log(char.stats())
+    console.log("1 - Basic Attack");
+    console.log(`2 - Special Attack : ${char.specialName()}`);
+    console.log("3 - Watch stats");
+    let valid = false;
+    do {
+      let playerParams = prompt("Enter a number to select your turn action :");
+      if (playerParams < 1 || playerParams > 3 || isNaN(playerParams)) {
+        console.log("Not a valid entry");
+      } else {
+        valid = true;
+        return playerParams;
+      }
+    } while (!valid);
+  }
+
+  humanAttack(ennemies) {
+    console.log("Who do you want to attack ?");
+     ennemies.forEach(this.displayEnnemies);
+     let valid = false;
+     do {
+       let victimParams = prompt("Enter a number to select your attack target :")
+       if (victimParams < 1 || victimParams > ennemies.length || isNaN(victimParams)) {
+         console.log("Not a valid entry");
+       } else {
+         valid = true;
+         return ennemies[victimParams-1];
+       }
+     } while (!valid)
+  }
+
+  displayEnnemies(ennemy, index) {
+    console.log(
+      `${index + 1} - ${ennemy.name} (${ennemy.constructor.name}) | ${
+        ennemy.hp
+      }/${ennemy.maxHp}HP`
+    );
+  }
 }
