@@ -7,17 +7,17 @@ class Monk extends Character {
     return "Heal (25MP)";
   }
 
-  specialAbility() {
+  special(victim) {
     this.mp -= 25;
     if (this.hp + 8 >= this.maxHp) {
       this.hp = this.maxHp;
     } else {
       this.hp += 8;
     }
-    return `${this.name} has healed for 8hp`;
+    console.log(`${this.name} has healed himself for 8hp`);
   }
 
-  specialDamage() {
-    return 0;
+  specialAvailable() {
+    return this.mp >= 25;
   }
 }

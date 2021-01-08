@@ -35,27 +35,41 @@ class Turn {
         break;
       }
 
-      if (this.aliveCharacters[i] === this.humanPlayer()) { // Human plays
-        let hasPlayed = false  
+      if (this.aliveCharacters[i] === this.humanPlayer()) {
+        // Human plays
+        let hasPlayed = false;
         do {
           hasPlayed = true;
           let action = this.humanAction(this.aliveCharacters[i], ennemies);
-          action = parseInt(action)
-          console.log(`DEBUG ${action}`)
+          action = parseInt(action);
+          console.log(`DEBUG ${action}`);
           if (action === 3) {
             this.game.watchStats();
-            hasPlayed = false
+            hasPlayed = false;
           } else {
-           const victim = this.humanAttack(ennemies);
-           if (action === 1) {
-             this.aliveCharacters[i].dealsDamage(victim, this.aliveCharacters[i].attackDmg );
-           } else if (action === 2) {
-            this.aliveCharacters[i].special(victim)
-           }
+            if (action === 1) {
+              const victim = this.humanAttack(ennemies);
+              this.aliveCharacters[i].dealsDamage(
+                victim,
+                this.aliveCharacters[i].attackDmg
+              );
+            } else if (action === 2) {
+              if (
+                this.aliveCharacters[i] instanceof Monk ||
+                this.aliveCharacters[i] instanceof Berzerker
+              ) {
+                this.aliveCharacters[i].special();
+              } else if (this.aliveCharacters[i] instanceof Necromancer) {
+                this.aliveCharacters[i].special(ennemies);
+              } else {
+                const victim = this.humanAttack(ennemies);
+                this.aliveCharacters[i].special(victim);
+              }
+            }
           }
         } while (!hasPlayed);
-
-      } else { // IA Plays
+      } else {
+        // IA Plays
         this.iaAction(this.aliveCharacters[i], ennemies);
       }
 
@@ -77,18 +91,18 @@ class Turn {
 
   humanAction(char) {
     console.log("It's your turn, select an action :");
-    console.log(char.stats())
+    console.log(char.stats());
     console.log("1 - Basic Attack");
     console.log(`2 - Special Attack : ${char.specialName()}`);
     console.log("3 - Watch stats");
     let valid = false;
     do {
       let playerParams = prompt("Enter a number to select your turn action :");
-      playerParams = parseInt(playerParams)
+      playerParams = parseInt(playerParams);
       if (playerParams < 1 || playerParams > 3 || isNaN(playerParams)) {
         console.log("Not a valid entry");
-      } else if (playerParams === 2 && (char.specialAvailable() === false)) {
-           console.log("Not enough mana")
+      } else if (playerParams === 2 && char.specialAvailable() === false) {
+        console.log("Not enough mana");
       } else {
         valid = true;
         return playerParams;
@@ -97,20 +111,26 @@ class Turn {
   }
 
   humanAttack(ennemies) {
-    console.log("")
+    console.log("");
     console.log(" ⚔ Who do you want to attack ? ⚔ ");
-     ennemies.forEach(this.displayEnnemies);
-     let valid = false;
-     do {
-       let victimParams = prompt("Enter a number to select your attack target :")
-       victimParams = parseInt(victimParams)
-       if (victimParams < 1 || victimParams > ennemies.length || isNaN(victimParams)) {
-         console.log("Not a valid entry");
-       } else {
-         valid = true;
-         return ennemies[victimParams-1];
-       }
-     } while (!valid)
+    ennemies.forEach(this.displayEnnemies);
+    let valid = false;
+    do {
+      let victimParams = prompt(
+        "Enter a number to select your attack target :"
+      );
+      victimParams = parseInt(victimParams);
+      if (
+        victimParams < 1 ||
+        victimParams > ennemies.length ||
+        isNaN(victimParams)
+      ) {
+        console.log("Not a valid entry");
+      } else {
+        valid = true;
+        return ennemies[victimParams - 1];
+      }
+    } while (!valid);
   }
 
   displayEnnemies(ennemy, index) {
