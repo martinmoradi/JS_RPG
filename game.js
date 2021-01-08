@@ -1,5 +1,6 @@
 class Game {
   constructor() {
+    console.clear();
     this.welcome();
     this.remainingTurns = 10;
     this.characters = new Array();

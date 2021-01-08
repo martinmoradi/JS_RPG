@@ -3,8 +3,8 @@ class Monk extends Character {
     super(name, hp, mp, attackDmg, status);
   }
 
-  specialAbilityName() {
-    return "Heal";
+  specialName() {
+    return "Heal (25MP)";
   }
 
   specialAbility() {

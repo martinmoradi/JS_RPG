@@ -40,13 +40,17 @@ class Turn {
         do {
           hasPlayed = true;
           let action = this.humanAction(this.aliveCharacters[i], ennemies);
-          if (action === "3") {
+          action = parseInt(action)
+          console.log(`DEBUG ${action}`)
+          if (action === 3) {
             this.game.watchStats();
             hasPlayed = false
           } else {
            const victim = this.humanAttack(ennemies);
-           if (action === "1") {
+           if (action === 1) {
              this.aliveCharacters[i].dealsDamage(victim, this.aliveCharacters[i].attackDmg );
+           } else if (action === 2) {
+            this.aliveCharacters[i].special(victim)
            }
           }
         } while (!hasPlayed);
@@ -80,8 +84,11 @@ class Turn {
     let valid = false;
     do {
       let playerParams = prompt("Enter a number to select your turn action :");
+      playerParams = parseInt(playerParams)
       if (playerParams < 1 || playerParams > 3 || isNaN(playerParams)) {
         console.log("Not a valid entry");
+      } else if (playerParams === 2 && (char.specialAvailable() === false)) {
+           console.log("Not enough mana")
       } else {
         valid = true;
         return playerParams;
@@ -90,11 +97,13 @@ class Turn {
   }
 
   humanAttack(ennemies) {
-    console.log("Who do you want to attack ?");
+    console.log("")
+    console.log(" ⚔ Who do you want to attack ? ⚔ ");
      ennemies.forEach(this.displayEnnemies);
      let valid = false;
      do {
        let victimParams = prompt("Enter a number to select your attack target :")
+       victimParams = parseInt(victimParams)
        if (victimParams < 1 || victimParams > ennemies.length || isNaN(victimParams)) {
          console.log("Not a valid entry");
        } else {

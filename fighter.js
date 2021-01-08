@@ -3,16 +3,13 @@ class Figher extends Character {
     super(name, hp, mp, attackDmg, status);
   }
 
-  specialAbilityName() {
-    return "Dark Vision";
+  specialName() {
+    return "Dark Vision (40MP)";
   }
 
-  specialAbility() {
+  special() {
     this.mp -= 40;
     return `${this.name} used Dark Vision, dealing 5 damage points and shielding himself, reducing damage taking until next turn.`;
   }
 
-  specialDamage() {
-    return 7;
-  }
 }

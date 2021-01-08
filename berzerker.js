@@ -9,8 +9,8 @@ class Berzerker extends Character {
      super(name, hp, mp, attackDmg, status);
   }
 
-  specialAbilityName() {
-    return "Rage"
+  specialName() {
+    return "Rage (1HP)"
   }
 
   specialAbility() {

@@ -3,11 +3,11 @@ class Paladin extends Character {
     super(name, hp, mp, attackDmg, status);
   }
 
-  specialAbilityName() {
-    return "Healing Lighting";
+  specialName() {
+    return "Healing Lighting (40MP)";
   }
 
-  specialAbility() {
+  special() {
     this.mp -= 40;
     if (this.hp + 4 >= this.maxHp) {
       this.hp = this.maxHp;
@@ -16,7 +16,4 @@ class Paladin extends Character {
     }
   }
 
-  specialDamage() {
-    return 4;
-  }
 }

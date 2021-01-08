@@ -4,16 +4,19 @@ class Wizard extends Character {
   }
 
   specialName() {
-    return "Fireball";
+    return "Fireball (25MP)";
   }
 
-  special() {
+  special(victim) {
     this.mp -= 25;
-    return `${this.name} used fireball, dealing 7 damage points`
+    console.log(
+      `${this.name} used fireball against ${victim.name}, dealing 7 damage points`
+    );
+    victim.takesDamage(7);
+    victim.hp <= 0 ? this.isKilled(victim) : null;
   }
 
-  specialDmg() {
-    return 7
+  specialAvailable() {
+    return (this.mp >= 25); 
   }
-
 }
