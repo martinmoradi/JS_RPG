@@ -4,7 +4,37 @@ class Turn {
     this.aliveCharacters = aliveCharacters;
     this.game = playingGame;
     this.shuffleChars();
+    this.startEvents();
     this.charActions();
+    this.endEvents();
+  }
+
+  startEvents() {
+    const fighter = this.aliveCharacters.filter(
+      (char) => char instanceof Figher
+    )[0];
+    if (fighter !== undefined && fighter.protection > 0) {
+      fighter.protection -= 1;
+    }
+
+    const assassin = this.aliveCharacters.filter(
+      (char) => char instanceof Assassin
+    )[0];
+    if (assassin !== undefined && assassin.specialVictim !== undefined) {
+      assassin.shadowHit();
+      if (assassin.status === "playing") {
+        assassin.protected = true;
+      }
+    }
+  }
+
+  endEvents() {
+    const assassin = this.aliveCharacters.filter(
+      (char) => char instanceof Assassin
+    )[0];
+    if (assassin !== undefined && assassin.protected !== true) {
+      assassin.protected = false;
+    }
   }
 
   humanPlayer() {
@@ -42,7 +72,6 @@ class Turn {
           hasPlayed = true;
           let action = this.humanAction(this.aliveCharacters[i], ennemies);
           action = parseInt(action);
-          console.log(`DEBUG ${action}`);
           if (action === 3) {
             this.game.watchStats();
             hasPlayed = false;

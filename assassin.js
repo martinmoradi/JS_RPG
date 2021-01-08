@@ -1,7 +1,8 @@
 class Assassin extends Character {
-  constructor(name, hp = 6, mp = 20, attackDmg = 6, status, specialVictim) {
+  constructor(name, hp = 6, mp = 20, attackDmg = 6, status, specialVictim, isProtected = false) {
     super(name, hp, mp, attackDmg, status);
     this.specialVictim = specialVictim;
+    this.isProtected = isProtected;
   }
 
   specialName() {
@@ -23,8 +24,8 @@ class Assassin extends Character {
       console.log(`${this.specialVictim.name} is already dead ...`);
       this.shadowHitBacklash();
     } else {
-      this.specialVictim.takesDmg(7);
-      this.specialVictim.status === loser ? null : this.shadowHitBacklash();
+      this.specialVictim.takesDamage(7);
+      this.specialVictim.status === "loser" ? null : this.shadowHitBacklash();
     }
   }
 
@@ -38,5 +39,9 @@ class Assassin extends Character {
       this.status = "loser"
     } 
     this.specialVictim = {}
+  }
+
+  specialAvailable() {
+    return (this.mp >= 20)
   }
 }

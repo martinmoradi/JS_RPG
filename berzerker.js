@@ -13,10 +13,10 @@ class Berzerker extends Character {
     return "Rage (1HP)"
   }
 
-  specialAbility() {
+  special() {
     this.hp -= 1
     this.attackDmg += 1
-    console.log(`{this.name} enrages, gaining 1 permanent damage at the cost of 1 health`)
+    console.log(`${this.name} enrages, gaining 1 permanent damage at the cost of 1 health`)
   }
 
   specialAvailable() {
